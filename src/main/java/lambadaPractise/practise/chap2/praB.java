@@ -1,5 +1,6 @@
 package lambadaPractise.practise.chap2;
 
+import com.opslab.util.ObjectUtils;
 import lambadaPractise.DataBase.DataContent;
 import lambadaPractise.DataBase.Project;
 import lambadaPractise.Util.DateUtil;
@@ -27,7 +28,6 @@ public class praB {
         System.out.println(projectListA);
 
         System.out.println("=============================================");
-
 
 
         //使用匿名内部类进行数据筛选(将接口实现类的方法放在的内部类中)
