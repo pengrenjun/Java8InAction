@@ -32,6 +32,9 @@ public class Project implements java.io.Serializable {
 		this.customerNumber = customerNumber;
 	}
 
+	public Project() {
+	}
+
 	public String getProjectName() {
 		return projectName;
 	}
