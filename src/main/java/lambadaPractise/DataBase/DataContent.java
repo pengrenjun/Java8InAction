@@ -1,6 +1,8 @@
 package lambadaPractise.DataBase;
 
 import lambadaPractise.Util.DateUtil;
+import lambdasinaction.chap5.Trader;
+import lambdasinaction.chap5.Transaction;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -24,6 +26,22 @@ public class DataContent {
             new DishPra("pizza", true, 550, DishPra.Type.OTHER),
             new DishPra("prawns", false, 300, DishPra.Type.FISH),
             new DishPra("salmon", false, 450, DishPra.Type.FISH) );
+
+
+    static Trader raoul = new Trader("Raoul", "Cambridge");
+    static Trader mario = new Trader("Mario","Milan");
+    static Trader alan = new Trader("Alan","Cambridge");
+    static Trader brian = new Trader("Brian","Cambridge");
+
+    //交易信息
+    public static final List<Transaction> transactions = Arrays.asList(
+            new Transaction(brian, 2011, 300),
+            new Transaction(raoul, 2012, 1000),
+            new Transaction(raoul, 2011, 400),
+            new Transaction(mario, 2012, 710),
+            new Transaction(mario, 2012, 700),
+            new Transaction(alan, 2012, 950)
+    );
 
 
     static {
