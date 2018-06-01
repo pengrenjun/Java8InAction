@@ -5,6 +5,10 @@ import lambadaPractise.DataBase.DishPra;
 import lambdasinaction.chap5.Trader;
 import lambdasinaction.chap5.Transaction;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -19,7 +23,7 @@ public class praE {
 
     private  static List<Transaction> transactionList=DataContent.transactions;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         List<String> words = Arrays.asList("Java 8", "Lambdas", "In", "Action");
 
         List<Integer> list=words.stream()
@@ -215,6 +219,22 @@ public class praE {
                                .filter(t->t[2]%1==0));
 
        objectStream.forEach(doubles -> System.out.println(doubles[0]+" "+doubles[1]+" "+doubles[2]));
+
+
+        System.out.println("===========================构建流============================");
+        int[] numbers = {2, 3, 5, 7, 11, 13};
+        IntStream intStream2 = Arrays.stream(numbers);
+        System.out.println(intStream2.sum());
+
+
+        long uniqueWords = 0;
+        Stream<String> lines =
+                    Files.lines(Paths.get("D:\\GitProject\\Java8InAction\\target\\classes\\lambadaPractise\\practise\\chap5\\data.txt"), Charset.defaultCharset());
+            uniqueWords = lines.flatMap(line -> Arrays.stream(line.split(" ")))
+                    .distinct()
+                    .count();
+
+        System.out.println(uniqueWords);
 
 
 
