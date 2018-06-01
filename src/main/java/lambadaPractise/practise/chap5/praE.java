@@ -5,10 +5,9 @@ import lambadaPractise.DataBase.DishPra;
 import lambdasinaction.chap5.Trader;
 import lambdasinaction.chap5.Transaction;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.joining;
@@ -174,6 +173,50 @@ public class praE {
         Optional<Transaction> smallestTransactionq =
                 transactionList.stream()
                         .min(comparing(Transaction::getValue));
+
+
+        System.out.println("====================数值流==================================");
+
+        //计算菜单的热量  int calories = menu.stream() .map(Dish::getCalories) .reduce(0, Integer::sum);  这段代码的问题是，它有一个暗含的装箱成本
+
+        //通过数值流减少装箱的成本
+        //映射为数值流
+        IntStream intStream=transactionList.stream().mapToInt(Transaction::getValue);
+        //调用数值流定义的方法
+        int valsum=intStream.sum();
+        System.out.println(valsum);
+
+        //将数值流转回对象流
+       //  Stream<Integer> integerStream=intStream.boxed();
+
+        //求最大值
+        OptionalInt maxVal=transactionList.stream().mapToInt(Transaction::getValue).max();
+        //提供最大值的默认值
+        System.out.println(maxVal.orElse(1));
+
+        //范围数值的生成 IntStream和LongStream的静态方法，帮助生成这种范围： range和rangeClosed
+        //这两个方法都是第一个参数接受起始值，第二个参数接受结束值。但 range是不包含结束值的，而rangeClosed则包含结束值
+        IntStream intStream1=IntStream.rangeClosed(0,100).filter(value -> value%2==0);
+        intStream1.forEach(value -> System.out.print(value+" "));
+
+
+        System.out.println();
+        System.out.println("====================数值流的应用:勾股数流==========================================");
+
+        /**
+         * flatMap又是怎么回事呢？
+         * 首先，创建一个从1到100的数值范围来生成a的值。对每 个给定的a值，创建一个三元数流。
+         * 要是把a的值映射到三元数流的话，就会得到一个由流构成的 流。flatMap方法在做映射的同时，还会把所有生成的三元数流扁平化成一个流。这样你就得到 了一个三元数流
+         */
+       Stream<double[]> objectStream= IntStream.rangeClosed(1,100).boxed()
+               .flatMap(
+                       a->IntStream.rangeClosed(a,100)
+                               .mapToObj(b->new double[]{a,b,Math.sqrt(a*a+b*b)})
+                               .filter(t->t[2]%1==0));
+
+       objectStream.forEach(doubles -> System.out.println(doubles[0]+" "+doubles[1]+" "+doubles[2]));
+
+
 
 
 
