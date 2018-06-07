@@ -37,6 +37,7 @@ public class DataContent {
     public static final List<Transaction> transactions = Arrays.asList(
             new Transaction(brian, 2011, 300),
             new Transaction(raoul, 2012, 1000),
+            new Transaction(raoul, 2012, 1500),
             new Transaction(raoul, 2011, 400),
             new Transaction(mario, 2012, 710),
             new Transaction(mario, 2012, 700),
