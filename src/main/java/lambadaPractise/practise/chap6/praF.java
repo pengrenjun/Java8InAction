@@ -6,6 +6,8 @@ import lambdasinaction.chap5.Trader;
 import lambdasinaction.chap5.Transaction;
 
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.IntStream;
 
 import static java.util.Comparator.comparingInt;
 import static java.util.stream.Collectors.*;
@@ -124,10 +126,30 @@ public class praF {
         System.out.println(traderSetMapB);
 
 
+        System.out.println("==================分区=====================");
+
+        //分区是分组的特殊情况：由一个谓词（返回一个布尔值的函数）作为分类函数，它称分区函 数。
+        //分区函数返回一个布尔值，这意味着得到的分组Map的键类型是Boolean，于是它最多可以 分为两组——true是一组，false是一组
+
+        //将菜单按素食和非素食分类
+        Map<Boolean,List<DishPra>> booleanListMap=dishPraList.stream().collect(partitioningBy(DishPra::isVegetarian));
+        System.out.println(booleanListMap);
+
+        //partitioningBy内引用其他收集器 按是否为素食进行分区再按热量大小进行分组
+        Map<Boolean,Map<DishPraLevel,List<DishPra>>> booleanMapMap=dishPraList.stream().
+                collect(partitioningBy(DishPra::isVegetarian,groupingBy(praF::dishPraLevelfunction)));
+        System.out.println(booleanMapMap);
+
+
+        //将数字按质数和非质数分区 对一定范围的数值流按质数和非质数分区
+        Map<Boolean,List<Integer>> booleanListMap1=partitionNunbers(100);
+        System.out.println(booleanListMap1);
+
+
+
 
 
     }
-
 
     public  enum DishPraLevel{diet,normal,fat}
 
@@ -137,6 +159,22 @@ public class praF {
                 DishPraLevel.normal;
         else return DishPraLevel.fat;
     }
+
+    /**
+     * 将数字按质数和非质数分区 对一定范围的数值流按质数和非质数分区
+     */
+    public static Map<Boolean,List<Integer>> partitionNunbers(int n){
+        return IntStream.rangeClosed(2,n).boxed().collect(partitioningBy(praF::isZhishu));
+    }
+
+    /**
+     * 区分质数还是非质数的谓语方法
+     */
+    public static  Boolean isZhishu(Integer integer){
+        return IntStream.range(2,integer).noneMatch(i->integer%i==0);
+    }
+
+
 
 
 }

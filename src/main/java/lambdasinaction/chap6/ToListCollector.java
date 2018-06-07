@@ -14,7 +14,7 @@ public class ToListCollector<T> implements Collector<T, List<T>, List<T>> {
 
     @Override
     public BiConsumer<List<T>, T> accumulator() {
-        return (list, item) -> list.add(item);
+        return ( list, item) -> list.add(item);
     }
 
     @Override
