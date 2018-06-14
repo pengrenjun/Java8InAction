@@ -7,9 +7,9 @@ import java.util.stream.*;
 public class WordCount {
 
     public static final String SENTENCE =
-            " Nel   mezzo del cammin  di nostra  vita " +
-            "mi  ritrovai in una  selva oscura" +
-            " che la  dritta via era   smarrita ";
+           "An object for traversing and partitioning elements of a source.  " +
+                   "The source of elements covered by a Spliterator could be," +
+                   " for example, an array, a* {@link Collection}, an IO channel, or a generator function";
 
     public static void main(String[] args) {
         System.out.println("Found " + countWordsIteratively(SENTENCE) + " words");
